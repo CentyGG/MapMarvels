@@ -13,7 +13,7 @@ public class SaveLandmarkUseCase {
         this.repo = repo;
     }
 
-    public void execute(@NonNull String title, @NonNull String description, @NonNull byte[] image, @NonNull String coords, @NonNull Consumer<Status<Integer>> callback) {
+    public void execute(@NonNull String title, @NonNull String description, @NonNull String image, @NonNull String coords, @NonNull Consumer<Status<Integer>> callback) {
         repo.saveLandmark(title, description, image, coords, callback);
     }
 }

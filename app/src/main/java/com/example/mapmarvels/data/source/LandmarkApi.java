@@ -18,5 +18,5 @@ public interface LandmarkApi {
     Call<ArrayList<LandmarkDto>> getAll();
 
     @POST("landmark")
-    Call<Integer> saveLandmark(@NonNull String title, @NonNull String description, @NonNull byte[] image, @NonNull String coords);
+    Call<Integer> saveLandmark(@NonNull String title, @NonNull String description, @NonNull String image, @NonNull String coords);
 }

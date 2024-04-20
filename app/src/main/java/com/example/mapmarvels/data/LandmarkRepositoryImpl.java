@@ -77,7 +77,7 @@ public class LandmarkRepositoryImpl implements LandmarkRepository {
     }
 
     @Override
-    public void saveLandmark(@NonNull String title, @NonNull String description, @NonNull byte[] image, @NonNull String coords, @NonNull @NotNull Consumer<Status<Integer>> callback) {
+    public void saveLandmark(@NonNull String title, @NonNull String description, @NonNull String image, @NonNull String coords, @NonNull @NotNull Consumer<Status<Integer>> callback) {
         landmarkApi.saveLandmark(title, description, image, coords).enqueue(new CallToConsumer<>(
                 callback,
                     response -> response
