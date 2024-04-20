@@ -21,13 +21,20 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.mapmarvels.R;
 import com.example.mapmarvels.databinding.FragmentCameraBinding;
 import com.example.mapmarvels.ui.MainActivity;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,9 +45,10 @@ import java.util.concurrent.ExecutionException;import android.Manifest;
 import android.content.pm.PackageManager;
 
 public class CameraFragment extends Fragment {
-
+    private NavController navController;
     private FragmentCameraBinding binding;
     private ProcessCameraProvider cameraProvider;
+    private PhotoViewModel viewModel;
     private ImageCapture imageCapture;
     private List<File> capturedPhotos = new ArrayList<>();
     private static final int REQUEST_CAMERA_PERMISSION = 200;
@@ -61,6 +69,7 @@ public class CameraFragment extends Fragment {
         }
         super.onViewCreated(view, savedInstanceState);
         ImageButton button = binding.photoButton;
+        viewModel = new ViewModelProvider(this).get(PhotoViewModel.class);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +85,8 @@ public class CameraFragment extends Fragment {
                 e.printStackTrace();
             }
         }, ContextCompat.getMainExecutor(requireContext()));
-
+        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        navController = navHostFragment.getNavController();
     }
 
     private void startCameraX(ProcessCameraProvider cameraProvider) {
@@ -100,13 +110,17 @@ public class CameraFragment extends Fragment {
         File photoFile = getOutputFile();
         if (photoFile != null) {
             ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(photoFile).build();
+            Fragment_photos_ok dialogFragment = new Fragment_photos_ok(navController);
+
+            FragmentManager fragmentManager = getParentFragmentManager(); // Используйте getParentFragmentManager() для получения FragmentManager
+
 
             imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(requireContext()), new ImageCapture.OnImageSavedCallback() {
                 @Override
                 public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                     Toast.makeText(requireContext(), "Image saved successfully", Toast.LENGTH_LONG).show();
-                    capturedPhotos.add(photoFile);
-                    Toast.makeText(requireContext(), "Image added to the list", Toast.LENGTH_SHORT).show();
+                    viewModel.addImage(photoFile);
+                    dialogFragment.show(fragmentManager, "dialog_photos_ok");
                 }
 
                 @Override
@@ -116,6 +130,10 @@ public class CameraFragment extends Fragment {
                 }
             });
         }
+    }
+
+    public void setCapturedPhotos_0() {
+        this.capturedPhotos.clear();
     }
 
     private File getOutputFile() {
@@ -139,6 +157,11 @@ public class CameraFragment extends Fragment {
             }
         }
     }
+
+    public List<File> getCapturedPhotos() {
+        return capturedPhotos;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
