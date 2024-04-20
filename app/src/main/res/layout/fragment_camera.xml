@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bottom_bar"
+        android:id="@+id/cameraBtn"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/camera"

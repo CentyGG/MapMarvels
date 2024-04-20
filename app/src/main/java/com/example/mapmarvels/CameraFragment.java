@@ -13,6 +13,7 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContentValuesKt;
 import androidx.core.content.ContextCompat;
 import android.os.Environment;
+import android.view.View;
 import android.widget.Toast;
 import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
@@ -40,7 +41,13 @@ public class CameraFragment extends Fragment {
 
                     imageCapture = new ImageCapture.Builder().build();
 
-                    findViewById(R.id.bottom_bar).setOnClickListener(v -> takePhoto());
+                    findViewById(R.id.bottom_bar).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            CameraActivity.this.takePhoto();
+                        }
+                    });
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
