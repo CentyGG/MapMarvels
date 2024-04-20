@@ -6,10 +6,13 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.mapmarvels.CameraFragment;
 import com.example.mapmarvels.DB;
 import com.example.mapmarvels.R;
 import com.example.mapmarvels.domain.Place;
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Objects;
 
@@ -52,7 +56,18 @@ public class MyMapService implements OnMapReadyCallback, GoogleMap.OnMapClickLis
                 Place place = DB.getPlaceByName(marker.getTitle());
                 BottomSheetDialog dialog = new BottomSheetDialog(context);
 
+
                 dialog.setContentView(R.layout.map_dialog_fragment);
+                MaterialTextView textViewName = dialog.findViewById(R.id.tv_name);
+                if (textViewName != null) {
+                    textViewName.setText(place.getName());
+                }
+
+                TextView textViewDescription = dialog.findViewById(R.id.tv_description);
+                if (textViewDescription != null) {
+                    textViewDescription.setText(place.getDescription());
+                }
+
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));
                 dialog.getWindow().setLayout(WRAP_CONTENT, WRAP_CONTENT);
