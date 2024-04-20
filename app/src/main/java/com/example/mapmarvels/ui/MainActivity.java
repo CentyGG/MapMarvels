@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.navigation.ui.NavigationUI;
 import com.example.mapmarvels.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,21 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         BottomNavigationView bottomNavigationView = binding.bottomBar;
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.map_nav_button:
-                        navController.navigate(R.id.action_cameraFragment_to_mapFragment);
-                        return true;
-                    case R.id.camera_nav_button:
-                        navController.navigate(R.id.action_mapFragment_to_cameraFragment);
-                        return true;
-                }
-                return false;
-            }
-        });
     }
 }
