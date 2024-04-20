@@ -12,4 +12,5 @@ public interface LandmarkRepository {
 
     void getLandmark(@NonNull String id, @NonNull Consumer<Status<FullLandmarkEntity>> callback);
     void getAllLandmarks(@NonNull Consumer<Status<List<FullLandmarkEntity>>> callback);
+    void saveLandmark(@NonNull String title, @NonNull String description, @NonNull byte[] image, @NonNull String coords, @NonNull Consumer<Status<Integer>> callback);
 }
