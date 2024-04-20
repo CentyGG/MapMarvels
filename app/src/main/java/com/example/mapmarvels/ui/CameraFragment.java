@@ -118,8 +118,8 @@ public class CameraFragment extends Fragment {
             imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(requireContext()), new ImageCapture.OnImageSavedCallback() {
                 @Override
                 public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                    Toast.makeText(requireContext(), "Image saved successfully", Toast.LENGTH_LONG).show();
                     viewModel.addImage(photoFile);
+                    Toast.makeText(requireContext(), "Image saved successfully", Toast.LENGTH_LONG).show();
                     dialogFragment.show(fragmentManager, "dialog_photos_ok");
                 }
 
