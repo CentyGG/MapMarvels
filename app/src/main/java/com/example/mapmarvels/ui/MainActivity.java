@@ -1,23 +1,16 @@
 package com.example.mapmarvels.ui;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+import androidx.navigation.ui.NavigationUI;
 
 import com.example.mapmarvels.R;
 import com.example.mapmarvels.databinding.ActivityMainBinding;
-import com.example.mapmarvels.service.MyMapService;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -35,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         BottomNavigationView bottomNavigationView = binding.bottomBar;
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
 
 
