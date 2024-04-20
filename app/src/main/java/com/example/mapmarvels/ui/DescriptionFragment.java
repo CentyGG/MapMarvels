@@ -1,4 +1,4 @@
-package com.example.mapmarvels;
+package com.example.mapmarvels.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mapmarvels.R;
 import com.example.mapmarvels.databinding.FragmentDescriptionBinding;
 
 public class DescriptionFragment extends Fragment {

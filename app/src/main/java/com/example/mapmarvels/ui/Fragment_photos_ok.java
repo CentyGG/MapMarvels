@@ -1,4 +1,4 @@
-package com.example.mapmarvels;
+package com.example.mapmarvels.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import com.example.mapmarvels.R;
 
 public class Fragment_photos_ok extends DialogFragment {
 
