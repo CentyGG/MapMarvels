@@ -1,5 +1,6 @@
 package com.example.mapmarvels.data;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import com.example.mapmarvels.data.dto.LandmarkDto;
 import com.example.mapmarvels.data.network.RetrofitFactory;
@@ -35,10 +36,11 @@ public class LandmarkRepositoryImpl implements LandmarkRepository {
         landmarkApi.getById(id).enqueue(new CallToConsumer<>(
                 callback,
                 landmark -> {
-                    final String resultId = landmark.id;
+                    Log.i("seerver", "Send");
+                    final Integer resultId = landmark.id;
                     final String title = landmark.title;
                     final String description = landmark.description;
-                    final byte[] image = landmark.image;
+                    final String image = landmark.image;
                     final String coords = landmark.coords;
                     if (resultId != null && title != null && description != null && image != null && coords != null) {
                         return new FullLandmarkEntity(
@@ -62,10 +64,10 @@ public class LandmarkRepositoryImpl implements LandmarkRepository {
                 landmarksDto -> {
                     ArrayList<FullLandmarkEntity> result = new ArrayList<>(landmarksDto.size());
                     for (LandmarkDto landmark : landmarksDto) {
-                        final String id = landmark.id;
+                        final Integer id = landmark.id;
                         final String title = landmark.title;
                         final String description = landmark.description;
-                        final byte[] image = landmark.image;
+                        final String image = landmark.image;
                         final String coords = landmark.coords;
                         if (id != null && title != null && description != null && image != null && coords != null) {
                             result.add(new FullLandmarkEntity(id, title, description, image, coords));

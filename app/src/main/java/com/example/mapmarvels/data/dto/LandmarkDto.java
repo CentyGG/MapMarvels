@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 public class LandmarkDto {
     @Nullable
     @SerializedName("id")
-    public String id;
+    public Integer id;
     @Nullable
     @SerializedName("title")
     public String title;
@@ -15,8 +15,8 @@ public class LandmarkDto {
     @SerializedName("description")
     public String description;
     @Nullable
-    @SerializedName("images")
-    public byte[] image;
+    @SerializedName("image")
+    public String image;
     @Nullable
     @SerializedName("coords")
     public String coords;

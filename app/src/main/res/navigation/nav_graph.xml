@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/map_nav_button"
-        android:name="com.example.mapmarvels.MapFragment"
+        android:name="com.example.mapmarvels.ui.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
     </fragment>

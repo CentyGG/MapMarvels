@@ -5,21 +5,21 @@ import androidx.annotation.Nullable;
 
 public class FullLandmarkEntity {
     @NonNull
-    private final String id;
+    private final Integer id;
     @NonNull
     private final String title;
     @Nullable
     private final String description;
     @Nullable
-    private final byte[] image;
+    private final String image;
     @Nullable
     private final String coords;
 
     public FullLandmarkEntity(
-            @NonNull String id,
+            @NonNull Integer id,
             @NonNull String title,
             @Nullable String description,
-            @Nullable byte[] image,
+            @Nullable String image,
             @Nullable String coords
     ) {
         this.id = id;
@@ -30,7 +30,7 @@ public class FullLandmarkEntity {
     }
 
     @NonNull
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -45,7 +45,7 @@ public class FullLandmarkEntity {
     }
 
     @Nullable
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
