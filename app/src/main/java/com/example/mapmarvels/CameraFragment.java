@@ -12,6 +12,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContentValuesKt;
 import androidx.core.content.ContextCompat;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
@@ -31,6 +34,9 @@ public class CameraFragment extends Fragment {
 
             previewView = findViewById(R.id.pv_camera);
 
+            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+            NavController navController = navHostFragment.getNavController();
+
             ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
             cameraProviderFuture.addListener(() -> {
@@ -46,6 +52,7 @@ public class CameraFragment extends Fragment {
                         public void onClick(View v) {
 
                             CameraActivity.this.takePhoto();
+                            new Fragment_photos_ok(navController).show(requireFragmentManager(), "Dialog");
                         }
                     });
                 } catch (ExecutionException | InterruptedException e) {

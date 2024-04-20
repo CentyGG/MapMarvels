@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_cameraFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_cameraFragment_to_descFragment"
+            app:destination="@id/descFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_map" >
         <action
             android:id="@+id/action_mapFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/descFragment"
+        android:name="com.example.mapmarvels.DescriptionFragment"
+        android:label="fragment_desc"
+        tools:layout="@layout/fragment_description">
+        <action
+            android:id="@+id/action_descFragment_to_cameraFragment"
             app:destination="@id/cameraFragment" />
     </fragment>
 </navigation>

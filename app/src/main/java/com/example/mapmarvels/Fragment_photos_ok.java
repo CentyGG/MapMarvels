@@ -8,8 +8,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 public class Fragment_photos_ok extends DialogFragment {
+
+
+
+    private NavController navController;
+
+    public Fragment_photos_ok(NavController navController) {
+        this.navController = navController;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -21,12 +32,12 @@ public class Fragment_photos_ok extends DialogFragment {
         builder.setTitle(title);  // заголовок
         builder.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                dismiss();
             }
         });
         builder.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
+                navController.navigate(R.id.action_cameraFragment_to_descFragment);
             }
         });
         builder.setCancelable(true);
