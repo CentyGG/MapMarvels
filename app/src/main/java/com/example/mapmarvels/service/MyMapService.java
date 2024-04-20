@@ -6,14 +6,12 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.mapmarvels.CameraFragment;
-import com.example.mapmarvels.DB;
+import com.example.mapmarvels.ui.DB;
 import com.example.mapmarvels.R;
 import com.example.mapmarvels.domain.Place;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,8 +21,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
-
-import java.util.Objects;
 
 public class MyMapService implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
     private  final Context context;

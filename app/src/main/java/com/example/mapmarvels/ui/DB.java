@@ -1,4 +1,4 @@
-package com.example.mapmarvels;
+package com.example.mapmarvels.ui;
 
 import android.os.Build;
 
