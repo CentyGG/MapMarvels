@@ -79,12 +79,17 @@ public class MyMapService implements OnMapReadyCallback, GoogleMap.OnMapClickLis
                 }
                 ImageView imageView = dialog.findViewById(R.id.image_photo);
                 viewModel = CameraFragment.getViewModelValue();
-                if (imageView != null) {
-                    Picasso.get()
-                            .load(viewModel.getImages().get(0))
-                            .error(R.drawable.icon) // Установка изображения ошибки, если загрузить не удалось
-                            .into(imageView);
+                if (place.getTitle().equals("Альтаир")) {
+                    if (viewModel != null && viewModel.images != null) {
+                        if (imageView != null) {
+                            Picasso.get()
+                                    .load(viewModel.getImages().get(viewModel.getImages().size() - 1))
+                                    .error(R.drawable.icon) // Установка изображения ошибки, если загрузить не удалось
+                                    .into(imageView);
+                        }
+                    }
                 }
+
 
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(TRANSPARENT));

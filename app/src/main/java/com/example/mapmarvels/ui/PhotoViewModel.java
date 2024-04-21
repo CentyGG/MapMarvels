@@ -14,7 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class PhotoViewModel extends ViewModel {
-    private MutableLiveData<ArrayList<File>> images = new MutableLiveData<>(new ArrayList<>());
+    public MutableLiveData<ArrayList<File>> images = new MutableLiveData<>(new ArrayList<>());
     private MutableLiveData<String> imagesUrl= new MutableLiveData<>(new String());
     private MutableLiveData<String> title = new MutableLiveData<>("");
     private MutableLiveData<String> description = new MutableLiveData<>("");
@@ -56,7 +56,6 @@ public class PhotoViewModel extends ViewModel {
 
     public void saveData(){
         saveLandmarkUseCase.execute(new FullLandmarkEntity(1, title.getValue(), description.getValue(), imagesUrl.getValue(), coords.getValue()), callback -> {
-            resetImages();
             resetImagesUrl();
         });
     }
