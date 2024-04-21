@@ -5,11 +5,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.example.mapmarvels.R;
 import com.example.mapmarvels.domain.entites.FullLandmarkEntity;
+import com.example.mapmarvels.ui.CameraFragment;
+import com.example.mapmarvels.ui.PhotoViewModel;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
@@ -17,6 +20,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textview.MaterialTextView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -26,7 +30,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class MyMapService implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
     private  final Context context;
     private final List<FullLandmarkEntity> items;
-
+    private PhotoViewModel viewModel;
     public MyMapService(Context context, List<FullLandmarkEntity> items) {
         this.context = context;
         this.items = items;
@@ -72,6 +76,14 @@ public class MyMapService implements OnMapReadyCallback, GoogleMap.OnMapClickLis
                 TextView textViewDescription = dialog.findViewById(R.id.tv_description);
                 if (textViewDescription != null) {
                     textViewDescription.setText(place.getDescription());
+                }
+                ImageView imageView = dialog.findViewById(R.id.image_photo);
+                viewModel = CameraFragment.getViewModelValue();
+                if (imageView != null) {
+                    Picasso.get()
+                            .load(viewModel.getImages().get(0))
+                            .error(R.drawable.icon) // Установка изображения ошибки, если загрузить не удалось
+                            .into(imageView);
                 }
 
                 dialog.getWindow().setGravity(Gravity.BOTTOM);
