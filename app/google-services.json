@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "23063670328",
+    "project_id": "mapmarvels",
+    "storage_bucket": "mapmarvels.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23063670328:android:28fffebfd959bd5bdd40cd",
+        "android_client_info": {
+          "package_name": "com.example.mapmarvels"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQLvJjzRR6qY_jYfg-3_S5lLWpqEB15rI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

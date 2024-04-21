@@ -1,34 +1,24 @@
 package com.example.mapmarvels.ui;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationRequest;
 import android.os.Bundle;
-import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.mapmarvels.R;
 import com.example.mapmarvels.databinding.FragmentDescriptionBinding;
-import com.google.android.gms.location.LocationCallback;
 
-public class DescriptionFragment extends Fragment implements LocationListener {
+import java.io.File;
+import java.util.List;
+
+public class DescriptionFragment extends Fragment {
+
     private FragmentDescriptionBinding binding;
     private ActivityResultLauncher<String[]> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), isGranted -> {
@@ -39,12 +29,11 @@ public class DescriptionFragment extends Fragment implements LocationListener {
             });
     private PhotoViewModel viewModel;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDescriptionBinding.inflate(inflater, container, false);
-        viewModel = new ViewModelProvider(this).get(PhotoViewModel.class);
-        checkLocationPermission();
+        viewModel = CameraFragment.getViewModelValue();
+
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
         if (ContextCompat.checkSelfPermission(
@@ -59,9 +48,35 @@ public class DescriptionFragment extends Fragment implements LocationListener {
 
 
         binding.save.setOnClickListener(v -> {
+            String name = binding.addName.getText().toString();
+            String desc = binding.addDesc.getText().toString();
+            viewModel.setTitle(name);
+            viewModel.setDescription(desc);
 
 
             // Запрашиваем обновление местоположения один раз
+            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance("gs://mapmarvels.appspot.com");////////////////////////////////
+            // Create a storage reference from our app
+            StorageReference storageRef = firebaseStorage.getReference();
+
+            ArrayList<File> images = viewModel.getImages();
+            for (File f : images) {
+                Uri file = Uri.fromFile(f);
+                StorageReference riversRef = storageRef.child("images/" + file.getLastPathSegment());
+                UploadTask uploadTask = riversRef.putFile(file);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        // ...
+                    }
+                });
+            }
 
 
             ///

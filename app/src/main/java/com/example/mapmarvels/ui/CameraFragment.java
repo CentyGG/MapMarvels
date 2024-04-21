@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -53,6 +54,7 @@ public class CameraFragment extends Fragment {
     private ImageCapture imageCapture;
     private List<File> capturedPhotos = new ArrayList<>();
     private static final int REQUEST_CAMERA_PERMISSION = 200;
+    private static PhotoViewModel viewModelValue;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -121,6 +123,7 @@ public class CameraFragment extends Fragment {
                 public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                     viewModel.addImage(photoFile);
                     Toast.makeText(requireContext(), "Image saved successfully", Toast.LENGTH_LONG).show();
+                    viewModelValue = viewModel;
                     dialogFragment.show(fragmentManager, "dialog_photos_ok");
                 }
 
@@ -167,5 +170,9 @@ public class CameraFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public static PhotoViewModel getViewModelValue() {
+        return viewModelValue;
     }
 }
