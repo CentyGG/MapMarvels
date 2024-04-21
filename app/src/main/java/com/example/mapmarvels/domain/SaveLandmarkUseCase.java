@@ -1,6 +1,7 @@
 package com.example.mapmarvels.domain;
 
 import androidx.annotation.NonNull;
+import com.example.mapmarvels.data.dto.LandmarkDto;
 import com.example.mapmarvels.domain.entites.FullLandmarkEntity;
 import com.example.mapmarvels.domain.entites.Status;
 
@@ -13,7 +14,7 @@ public class SaveLandmarkUseCase {
         this.repo = repo;
     }
 
-    public void execute(@NonNull String title, @NonNull String description, @NonNull String image, @NonNull String coords, @NonNull Consumer<Status<Integer>> callback) {
-        repo.saveLandmark(title, description, image, coords, callback);
+    public void execute(@NonNull FullLandmarkEntity landmark, @NonNull Consumer<Status<Integer>> callback) {
+        repo.saveLandmark(landmark, callback);
     }
 }

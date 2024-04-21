@@ -5,8 +5,10 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.mapmarvels.data.LandmarkRepositoryImpl;
+import com.example.mapmarvels.data.dto.LandmarkDto;
 import com.example.mapmarvels.domain.GetAllLandmarksUseCase;
 import com.example.mapmarvels.domain.SaveLandmarkUseCase;
+import com.example.mapmarvels.domain.entites.FullLandmarkEntity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class PhotoViewModel extends ViewModel {
     }
 
     public void saveData(){
-        saveLandmarkUseCase.execute(title.getValue(), description.getValue(), imagesUrl.getValue(), coords.getValue(), callback -> {
+        saveLandmarkUseCase.execute(new FullLandmarkEntity(1, title.getValue(), description.getValue(), imagesUrl.getValue(), coords.getValue()), callback -> {
             resetImages();
             resetImagesUrl();
         });
