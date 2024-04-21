@@ -50,7 +50,7 @@ public class CameraFragment extends Fragment {
     private FragmentCameraBinding binding;
     private ProcessCameraProvider cameraProvider;
     private PhotoViewModel viewModel;
-    
+
     private ImageCapture imageCapture;
     private List<File> capturedPhotos = new ArrayList<>();
     private static final int REQUEST_CAMERA_PERMISSION = 200;
@@ -59,8 +59,6 @@ public class CameraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCameraBinding.inflate(inflater, container, false);
-
-
 
         return binding.getRoot();
     }

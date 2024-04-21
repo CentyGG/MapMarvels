@@ -1,21 +1,36 @@
 package com.example.mapmarvels.ui;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
+import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-
 import com.example.mapmarvels.R;
 import com.example.mapmarvels.databinding.FragmentDescriptionBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class DescriptionFragment extends Fragment {
 
@@ -31,9 +46,10 @@ public class DescriptionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FirebaseApp.initializeApp(requireContext());
         binding = FragmentDescriptionBinding.inflate(inflater, container, false);
         viewModel = CameraFragment.getViewModelValue();
-
+        checkLocationPermission();
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
         if (ContextCompat.checkSelfPermission(
@@ -104,11 +120,6 @@ public class DescriptionFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        Toast.makeText(requireContext(), location.getLatitude()+ ", " + location.getLongitude(), Toast.LENGTH_LONG).show();
-        viewModel.setCoords(location.getLatitude()+ ", " + location.getLongitude());
-    }
     private void getLocation(){
         LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
         String locationProvider = LocationManager.NETWORK_PROVIDER;
