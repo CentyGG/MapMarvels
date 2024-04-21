@@ -27,7 +27,6 @@ public class MapViewModel extends ViewModel {
     }
 
     public void update() {
-        Log.i("seerver", "Updating");
         mutableStateLiveData.setValue(new State(null, null, true));
         getAllLandmarksUseCase.execute(status -> {
             mutableStateLiveData.postValue(fromStatus(status));
