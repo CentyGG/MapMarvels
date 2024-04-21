@@ -70,37 +70,6 @@ public class DescriptionFragment extends Fragment {
             viewModel.setDescription(desc);
 
 
-            // Запрашиваем обновление местоположения один раз
-            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance("gs://mapmarvels.appspot.com");////////////////////////////////
-            // Create a storage reference from our app
-            StorageReference storageRef = firebaseStorage.getReference();
-
-            ArrayList<File> images = viewModel.getImages();
-            for (File f : images) {
-                Uri file = Uri.fromFile(f);
-                StorageReference riversRef = storageRef.child("images/" + file.getLastPathSegment());
-                UploadTask uploadTask = riversRef.putFile(file);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
-                    }
-                });
-            }
-
-
-            ///
-            ////
-            ////
-            ////
-            ////передача данных на сервак
-
             viewModel.resetImages();
             navController.navigate(R.id.action_descFragment_to_cameraFragment);
         });
